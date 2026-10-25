@@ -6,7 +6,11 @@ import Header from './components/Header';
 import {useEffect, useState} from "react";
 
 function App() {
-    const [cartCount, setCartCount] = useState(0);
+    const [cartCount, setCartCount] = useState(Number(localStorage.getItem("cartCount")));
+
+    useEffect(() => {
+        localStorage.setItem("cartCount", cartCount);
+    }, [cartCount]);
 
     return (
         <>

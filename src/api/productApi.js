@@ -1,28 +1,45 @@
+import {getCache, setCache} from "../utils/cache.js";
+import {cache} from "react";
+
 const API_BASE_URL = 'https://itx-frontend-test.onrender.com/api';
 
 export async function getProducts(signal) {
-    const response = await fetch(`${API_BASE_URL}/product`, {
-        signal
-    });
 
-    if (!response.ok) {
-        throw new Error('Error al obtener los productos');
+    const cacheProducts = getCache("products");
+    if (cacheProducts === null) {
+        const response = await fetch(`${API_BASE_URL}/product`, {
+            signal
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al obtener los productos');
+        }
+        const data = await response.json();
+        setCache("products", data);
+        return data;
     }
-
-    return response.json();
+    return cacheProducts;
 }
 
 export async function getProductDetail(id, signal) {
-    const response = await fetch(
-        `${API_BASE_URL}/product/${encodeURIComponent(id)}`,
-        { signal }
-    );
 
-    if (!response.ok) {
-        throw new Error('Error al obtener los detalles del producto');
+    const cacheKey = `product-${id}`;
+    const cacheProduct = getCache(cacheKey);
+
+    if (cacheProduct === null) {
+        const response = await fetch(
+            `${API_BASE_URL}/product/${encodeURIComponent(id)}`,
+            {signal}
+        );
+
+        if (!response.ok) {
+            throw new Error('Error al obtener los detalles del producto');
+        }
+        const data = await response.json();
+        setCache(cacheKey, data);
+        return data;
     }
-
-    return response.json();
+    return cacheProduct;
 }
 
 export async function addToCart(id, colorCode, storageCode) {
