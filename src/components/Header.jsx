@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router';
 
-function Header() {
+function Header({cartCount}) {
     const location = useLocation();
     const isHome = location.pathname === '/';
 
@@ -18,7 +18,7 @@ function Header() {
                 </nav>
 
                 <div className="header-cart">
-                    Carrito: 0
+                    Carrito: {cartCount}
                 </div>
 
             </div>
