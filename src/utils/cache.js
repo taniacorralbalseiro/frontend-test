@@ -25,7 +25,7 @@ export function getCache(key) {
             }
         }
         return null;
-    } catch (error) {
+    } catch {
         localStorage.removeItem(key);
         return null;
     }

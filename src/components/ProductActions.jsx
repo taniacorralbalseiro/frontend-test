@@ -18,7 +18,7 @@ function ProductActions({product, setCartCount}){
         try{
             const dataCart = await addToCart(product.id, selectedColor, selectedStorage);
             setCartCount(prevCount => prevCount + dataCart.count);
-        } catch (error) {
+        } catch {
             setError('No se ha podido añadir el producto a la cesta');
         } finally {
             setAddingToCart(false);

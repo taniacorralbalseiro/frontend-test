@@ -1,5 +1,4 @@
 import {getCache, setCache} from "../utils/cache.js";
-import {cache} from "react";
 
 const API_BASE_URL = 'https://itx-frontend-test.onrender.com/api';
 
@@ -62,3 +61,4 @@ export async function addToCart(id, colorCode, storageCode) {
 
     return response.json();
 }
+
